@@ -35,7 +35,7 @@ def create_trait_reference_array(ctx: CdmCorpusContext,
         -> Optional[List[Union[CdmTraitReference, CdmTraitGroupReference]]]:
     """
     Converts a JSON object to a CdmCollection of TraitReferences.
-    If object is not a list, returns None.
+    If object != a list, returns None.
     """
 
     if not obj or not isinstance(obj, List):
@@ -45,7 +45,7 @@ def create_trait_reference_array(ctx: CdmCorpusContext,
     result = []
 
     for elem in obj:
-        if not isinstance(elem, str) and elem.traitGroupReference is not None:
+        if not isinstance(elem, str) and elem.traitGroupReference != None:
             result.append(TraitGroupReferencePersistence.from_data(ctx, elem))
         else:
             model = JObject()
@@ -61,7 +61,7 @@ def create_trait_reference_array(ctx: CdmCorpusContext,
 
 def add_list_to_cdm_collection(cdm_collection: CdmCollection, the_list: List) -> None:
     """Adds all elements of a list to a CdmCollection"""
-    if cdm_collection is not None and the_list is not None:
+    if cdm_collection != None and the_list != None:
         for element in the_list:
             cdm_collection.append(element)
 
@@ -114,7 +114,7 @@ def copy_identifier_ref(obj_ref: CdmObjectReference, res_opt: ResolveOptions, op
 
 
 def _property_from_data_to_string(value) -> Optional[str]:
-    if value is not None and value != '' and isinstance(value, str):
+    if value != None and value != '' and isinstance(value, str):
         return value
     if isinstance(value, int):
         return str(value)
@@ -128,7 +128,7 @@ def _property_from_data_to_int(value) -> Optional[int]:
         try:
             return int(value)
         except ValueError:
-            # str is not a valid number
+            # str != a valid number
             pass
     return None
 
@@ -153,7 +153,7 @@ def cardinality_settings_from_data(data: CardinalitySettings, attribute: CdmAttr
     cardinality.minimum = data.get('minimum')
     cardinality.maximum = data.get('maximum')
 
-    if cardinality.minimum is not None and cardinality.maximum is not None:
+    if cardinality.minimum != None and cardinality.maximum != None:
         return cardinality
     else:
         return None
@@ -171,73 +171,73 @@ def create_partition_trait(obj: 'CsvFormatSettings', ctx: 'CdmCorpusContext',for
         return None
 
     format_trait.simple_named_reference = False
-    if obj is not None:
-        if obj.get('header') is not None:
+    if obj != None:
+        if obj.get('header') != None:
             column_headers_arg = ctx.corpus.make_object(CdmObjectType.ARGUMENT_DEF, 'columnHeaders')
             column_headers_arg.value = str(obj.get('header')).lower()
             format_trait.arguments.append(column_headers_arg)
 
-        if obj.get('csvStyle') is not None:
+        if obj.get('csvStyle') != None:
             csv_style_arg = ctx.corpus.make_object(CdmObjectType.ARGUMENT_DEF, 'csvStyle')
             csv_style_arg.value = obj.get('csvStyle')
             format_trait.arguments.append(csv_style_arg)
 
-        if obj.get('field.delim') is not None:
+        if obj.get('field.delim') != None:
             delimiter_arg = ctx.corpus.make_object(CdmObjectType.ARGUMENT_DEF, 'delimiter')
             delimiter_arg.value = obj.get('field.delim')
             format_trait.arguments.append(delimiter_arg)
 
-        if obj.get('quoteStyle') is not None:
+        if obj.get('quoteStyle') != None:
             quote_style_arg = ctx.corpus.make_object(CdmObjectType.ARGUMENT_DEF, 'quoteStyle')
             quote_style_arg.value = obj.get('quoteStyle')
             format_trait.arguments.append(quote_style_arg)
 
-        if obj.get('quote') is not None:
+        if obj.get('quote') != None:
             quote_arg = ctx.corpus.make_object(CdmObjectType.ARGUMENT_DEF, 'quote')
             quote_arg.value = obj.get('quote')
             format_trait.arguments.append(quote_arg)
 
-        if obj.get('encoding') is not None:
+        if obj.get('encoding') != None:
             encoding_arg = ctx.corpus.make_object(CdmObjectType.ARGUMENT_DEF, 'encoding')
             encoding_arg.value = obj.get('encoding')
             format_trait.arguments.append(encoding_arg)
 
-        if obj.get('escape') is not None:
+        if obj.get('escape') != None:
             escape_arg = ctx.corpus.make_object(CdmObjectType.ARGUMENT_DEF, 'escape')
             escape_arg.value = obj.get('escape')
             format_trait.arguments.append(escape_arg)
 
-        if obj.get('newline') is not None:
+        if obj.get('newline') != None:
             newline_arg = ctx.corpus.make_object(CdmObjectType.ARGUMENT_DEF, 'newline')
             newline_arg.value = obj.get('newline')
             format_trait.arguments.append(newline_arg)
 
-        if obj.get('skipLines') is not None:
+        if obj.get('skipLines') != None:
             skiplines_arg = ctx.corpus.make_object(CdmObjectType.ARGUMENT_DEF, 'skipLines')
             skiplines_arg.value = obj.get('skipLines')
             format_trait.arguments.append(skiplines_arg)
 
-        if obj.get('inferSchema') is not None:
+        if obj.get('inferSchema') != None:
             infer_schema_arg = ctx.corpus.make_object(CdmObjectType.ARGUMENT_DEF, 'inferSchema')
             infer_schema_arg.value = obj.get('inferSchema')
             format_trait.arguments.append(infer_schema_arg)
 
-        if obj.get('timestampFormat') is not None:
+        if obj.get('timestampFormat') != None:
             timestampformat_arg = ctx.corpus.make_object(CdmObjectType.ARGUMENT_DEF, 'timestampFormat')
             timestampformat_arg.value = obj.get('timestampFormat')
             format_trait.arguments.append(timestampformat_arg)
 
-        if obj.get('ignoreTrailingWhiteSpace') is not None:
+        if obj.get('ignoreTrailingWhiteSpace') != None:
             ignore_trailing_white_space_arg = ctx.corpus.make_object(CdmObjectType.ARGUMENT_DEF, 'ignoreTrailingWhiteSpace')
             ignore_trailing_white_space_arg.value = obj.get('skipLines')
             format_trait.arguments.append(ignore_trailing_white_space_arg)
 
-        if obj.get('ignoreLeadingWhiteSpace') is not None:
+        if obj.get('ignoreLeadingWhiteSpace') != None:
             ignore_leading_white_space_arg = ctx.corpus.make_object(CdmObjectType.ARGUMENT_DEF, 'ignoreLeadingWhiteSpace')
             ignore_leading_white_space_arg.value = obj.get('ignoreLeadingWhiteSpace')
             format_trait.arguments.append(ignore_leading_white_space_arg)
 
-        if obj.get('multiLine') is not None:
+        if obj.get('multiLine') != None:
             multiline_arg = ctx.corpus.make_object(CdmObjectType.ARGUMENT_DEF, 'multiLine')
             multiline_arg.value = obj.get('multiLine')
             format_trait.arguments.append(multiline_arg)
@@ -315,9 +315,9 @@ def corpus_path_to_syms_path(corpus_path: str, strg_mgr: 'StorageManager')-> str
     path_tuple = StorageUtils.split_namespace_path(corpus_path)
     if path_tuple[0] != '':
         adls_path = strg_mgr.corpus_path_to_adapter_path(corpus_path)
-        if adls_path is not None:
+        if adls_path != None:
             syms_path = adls_adapter_path_to_syms_path(adls_path)
-            if syms_path is not None:
+            if syms_path != None:
                 return syms_path
     return None
 
@@ -335,15 +335,15 @@ def split_storage_name_fs_from_adls_path(path: str) -> Tuple[str, str]:
     return None
 
 def get_wildcards_matches(path: str)-> 'Match[str]':
-    if path is not None and path is not '':
+    if path != None and path != '':
         result = re.search(r'[^.]\*', path)
-        if result is not None:
+        if result != None:
             return result
     return None
 
 def split_root_location_regex_from_path(path: str, matches: 'Match[str]')-> Tuple[str, str]:
-    if path is not None or path is not '':
-        if matches is not None and len(matches) > 0:
+    if path != None or path != '':
+        if matches != None and len(matches) > 0:
             return (path[0:matches.span()[0]], path[matches.span()[0]:])
     return None
 
@@ -379,7 +379,7 @@ def create_syms_absolute_path(root: str, path: str)-> str:
     return path
 
 def try_get_unique_ns(strg_mgr: 'StorageManager')-> str:
-    if strg_mgr is not None:
+    if strg_mgr != None:
         count = 0
         max_retry = 100
         ns_name_index = 0
@@ -437,7 +437,7 @@ def syms_data_type_to_cdm_data_format(type_info: 'TypeInfo')-> 'CdmDataFormat':
     elif type_info.type_name == 'string':
         if type_info.length == 1:
             return CdmDataFormat.CHAR
-        if type_info.properties is not None:
+        if type_info.properties != None:
             if 'guid' in type_info.properties and type_info.properties['guid'] == True:
                 return CdmDataFormat.GUID
             if 'json' in type_info.properties and type_info.properties['json'] == True:
@@ -458,7 +458,7 @@ def syms_data_type_to_cdm_data_format(type_info: 'TypeInfo')-> 'CdmDataFormat':
     elif type_info.type_name == 'date':
         return CdmDataFormat.DATE
     elif type_info.type_name == 'timestamp':
-        if type_info.properties is not None:
+        if type_info.properties != None:
             if 'dateTime' in type_info.properties and type_info.properties['dateTime'] == True:
                 return CdmDataFormat.DateTime
         return CdmDataFormat.TIME
@@ -549,7 +549,7 @@ async def create_or_update_syms_entities(syms_manifest_content: 'SymsManifestCon
 
     if syms_manifest_content.intial_sync:
        await create_or_update_database(syms_manifest_content.database, adapter)
-    if syms_manifest_content.removed_entities is not None:
+    if syms_manifest_content.removed_entities != None:
         for remove_table in syms_manifest_content.removed_entities:
             try:
                 await remove_table_entity(remove_table, syms_manifest_content.database.name, adapter)
@@ -558,7 +558,7 @@ async def create_or_update_syms_entities(syms_manifest_content: 'SymsManifestCon
             if len(failed_removed_tables) > 0:
                 error_mesg += 'Failed removed tables : ' + str(failed_removed_tables)
 
-    if syms_manifest_content.removed_relationships is not None:
+    if syms_manifest_content.removed_relationships != None:
         for remove_relationship in syms_manifest_content.removed_relationships:
             try:
                 await remove_relationship_entity(remove_relationship, syms_manifest_content.database.name, adapter)
@@ -567,7 +567,7 @@ async def create_or_update_syms_entities(syms_manifest_content: 'SymsManifestCon
         if len(failed_removed_relationships) > 0:
            error_mesg += 'Failed removed relationships :' + str(failed_removed_relationships)
 
-    if syms_manifest_content.entities is not None:
+    if syms_manifest_content.entities != None:
         for table in syms_manifest_content.entities:
             try:
                 await create_or_update_table_entity(table, adapter)
@@ -576,7 +576,7 @@ async def create_or_update_syms_entities(syms_manifest_content: 'SymsManifestCon
         if len(failed_updated_tables) > 0:
             error_mesg += 'Failed updated tables : ' + str(failed_updated_tables)
 
-    if syms_manifest_content.relationships is not None:
+    if syms_manifest_content.relationships != None:
         for relationship in syms_manifest_content.relationships:
             try:
                 await create_or_update_relationship_entity(relationship, adapter)
@@ -597,13 +597,13 @@ async def remove_relationship_entity(relationship: str, database_name: str, adap
 def is_entity_added_or_modified(entity: CdmLocalEntityDeclarationDefinition, existing_syms_tables)-> bool:
     if existing_syms_tables == None or len(existing_syms_tables) == 0 or not entity.entity_name in existing_syms_tables:
         return True
-    if entity.last_file_modified_time is not None and (entity.last_file_modified_old_time is not None and entity.last_file_modified_old_time <= entity.last_file_modified_time):
+    if entity.last_file_modified_time != None and (entity.last_file_modified_old_time != None and entity.last_file_modified_old_time <= entity.last_file_modified_time):
         return True
     return False
 
 def is_relationship_added_or_modified(relationship: 'CdmE2ERelationship', existing_syms_relationship)-> bool:
     if relationship.name == None or existing_syms_relationship == None or len(existing_syms_relationship) == 0 or not relationship.name in existing_syms_relationship:
         return True
-    if relationship.last_file_modified_time is not None and (relationship.last_file_modified_old_time is not None and relationship.last_file_modified_old_time < relationship.last_file_modified_time):
+    if relationship.last_file_modified_time != None and (relationship.last_file_modified_old_time != None and relationship.last_file_modified_old_time < relationship.last_file_modified_time):
         return True
     return False
